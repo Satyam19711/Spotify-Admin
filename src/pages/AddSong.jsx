@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import API from "../api";
 import { toast } from "react-toastify";
 import Loader from "../components/Loader";
@@ -12,6 +12,9 @@ const AddSong = () => {
   const [imageFile, setImageFile] = useState(null);
   const [audioFile, setAudioFile] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const imageInputRef = useRef();
+  const audioInputRef = useRef();
 
   useEffect(() => {
     const loadAlbums = async () => {
@@ -49,7 +52,7 @@ const AddSong = () => {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
-      toast.success("Song added successfully!");
+      toast.success("🎵 Song added successfully!");
       console.log("Response:", res.data);
 
       setName("");
@@ -57,6 +60,8 @@ const AddSong = () => {
       setAlbum("");
       setImageFile(null);
       setAudioFile(null);
+      if (imageInputRef.current) imageInputRef.current.value = "";
+      if (audioInputRef.current) audioInputRef.current.value = "";
     } catch (err) {
       console.error("Error adding song:", err.response?.data || err.message);
       toast.error("Failed to add song — check backend logs");
@@ -77,15 +82,17 @@ const AddSong = () => {
             value={name}
             onChange={(e) => setName(e.target.value)}
             className="mt-1 block w-full border p-2 rounded"
+            placeholder="Enter song name"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium">desc</label>
+          <label className="block text-sm font-medium">Description</label>
           <textarea
             value={desc}
             onChange={(e) => setDesc(e.target.value)}
             className="mt-1 block w-full border p-2 rounded"
+            placeholder="Write something about this song..."
           />
         </div>
 
@@ -112,6 +119,7 @@ const AddSong = () => {
             <input
               type="file"
               accept="image/*"
+              ref={imageInputRef}
               onChange={(e) => setImageFile(e.target.files[0])}
               className="mt-1"
             />
@@ -122,6 +130,7 @@ const AddSong = () => {
             <input
               type="file"
               accept="audio/*"
+              ref={audioInputRef}
               onChange={(e) => setAudioFile(e.target.files[0])}
               className="mt-1"
             />
@@ -131,7 +140,7 @@ const AddSong = () => {
         <div>
           <button
             type="submit"
-            className="px-4 py-2 bg-slate-800 text-white rounded"
+            className="px-4 py-2 bg-slate-800 text-white rounded hover:bg-slate-900 transition-all"
           >
             Add Song
           </button>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import API from "../api";
 import { toast } from "react-toastify";
 import Loader from "../components/Loader";
@@ -10,6 +10,8 @@ const AddAlbum = () => {
   const [bgColor, setBgColor] = useState("#ffffff");
   const [imageFile, setImageFile] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const imageInputRef = useRef();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,11 +32,13 @@ const AddAlbum = () => {
     try {
       setLoading(true);
       await API.post("/album/add", formData);
-      toast.success("Album added successfully");
+      toast.success("💿 Album added successfully!");
+
       setName("");
       setDesc("");
       setBgColor("#ffffff");
       setImageFile(null);
+      if (imageInputRef.current) imageInputRef.current.value = "";
     } catch (err) {
       console.error(err);
       toast.error("Failed to add album");
@@ -47,6 +51,7 @@ const AddAlbum = () => {
     <div className="bg-white p-6 rounded shadow">
       {loading && <Loader />}
       <h2 className="text-2xl font-semibold mb-4">Add Album</h2>
+
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label className="block text-sm font-medium">Name</label>
@@ -54,15 +59,17 @@ const AddAlbum = () => {
             value={name}
             onChange={(e) => setName(e.target.value)}
             className="mt-1 block w-full border p-2 rounded"
+            placeholder="Enter album name"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium">desc</label>
+          <label className="block text-sm font-medium">Description</label>
           <textarea
             value={desc}
             onChange={(e) => setDesc(e.target.value)}
             className="mt-1 block w-full border p-2 rounded"
+            placeholder="Describe this album..."
           />
         </div>
 
@@ -75,7 +82,7 @@ const AddAlbum = () => {
               type="color"
               value={bgColor}
               onChange={(e) => setBgColor(e.target.value)}
-              className="mt-1 h-10 w-16 p-0 border rounded"
+              className="mt-1 h-10 w-16 p-0 border rounded cursor-pointer"
             />
           </div>
 
@@ -84,6 +91,7 @@ const AddAlbum = () => {
             <input
               type="file"
               accept="image/*"
+              ref={imageInputRef}
               onChange={(e) => setImageFile(e.target.files[0])}
               className="mt-1"
             />
@@ -93,7 +101,7 @@ const AddAlbum = () => {
         <div>
           <button
             type="submit"
-            className="px-4 py-2 bg-slate-800 text-white rounded"
+            className="px-4 py-2 bg-slate-800 text-white rounded hover:bg-slate-900 transition-all"
           >
             Add Album
           </button>
