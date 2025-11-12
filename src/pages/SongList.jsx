@@ -57,16 +57,17 @@ const SongList = () => {
   useEffect(() => {
     if (currentSong && audioRef.current) {
       audioRef.current.src = currentSong.file;
-      audioRef.current.play();
+      audioRef.current.play().catch(() => {});
     }
   }, [currentSong]);
 
   return (
-    <div className="bg-white p-6 rounded shadow">
+    <div className="bg-white p-6 rounded shadow relative">
       {loading && <Loader />}
       <h2 className="text-2xl font-semibold mb-4">Song List</h2>
 
-      <div className="space-y-4">
+      <div className="space-y-4 pb-24">
+        {" "}
         {songs.length === 0 && (
           <div className="text-slate-500">No songs yet.</div>
         )}
@@ -82,19 +83,21 @@ const SongList = () => {
             />
             <div className="flex-1">
               <div className="font-bold">{song.name}</div>
-              <div className="text-sm text-slate-600">{song.desc}</div>
+              <div className="text-sm text-slate-600 line-clamp-2">
+                {song.desc}
+              </div>
               <div className="text-xs text-slate-500">Album: {song.album}</div>
             </div>
             <div className="flex gap-2">
               <button
                 onClick={() => handlePlayPause(song)}
-                className="px-3 py-1 bg-slate-700 text-white rounded cursor-pointer hover:bg-slate-800 transition"
+                className="px-3 py-1 bg-slate-700 text-white rounded hover:bg-slate-800 transition"
               >
                 {currentSong && currentSong._id === song._id ? "Pause" : "Play"}
               </button>
               <button
                 onClick={() => handleDelete(song._id)}
-                className="px-3 py-1 bg-red-600 text-white rounded cursor-pointer hover:bg-red-700 transition"
+                className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 transition"
               >
                 Delete
               </button>
@@ -103,7 +106,20 @@ const SongList = () => {
         ))}
       </div>
 
-      <audio ref={audioRef} controls className="w-full mt-4" />
+      <div className="fixed bottom-0 left-66 right-66 bg-green-700 shadow-2xl border-t p-4 flex items-center justify-between z-50 rounded-lg">
+        <div className=" font-medium truncate w-[60%] text-white">
+          {currentSong ? (
+            <>
+              <span className="font-semibold">{currentSong.name}</span> —{" "}
+              <span>{currentSong.album}</span>
+            </>
+          ) : (
+            <span>No song playing</span>
+          )}
+        </div>
+
+        <audio ref={audioRef} controls className="w-[35%] max-w-[900px] h-8" />
+      </div>
     </div>
   );
 };
