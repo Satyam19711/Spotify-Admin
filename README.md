@@ -1,16 +1,88 @@
-# React + Vite
+# ⚙️ Spotify Admin Panel  
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The **Spotify Admin Panel** is the backend management dashboard for the full-stack Spotify app.  
+It allows the admin to **add, manage, and delete songs or albums** that appear in the user app.  
+The admin interface is built using **React (Vite)** and connects to a **Node.js + MongoDB backend** via RESTful APIs.  
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Live Demo  
 
-## React Compiler
+<p align="center">
+  🔗 <a href="https://admin-spotify.netlify.app/" target="_blank"><b>🎧 Open Admin Panel</b></a> |
+  <a href="https://satyamspotifyclone.netlify.app/" target="_blank"><b>🎵 Spotify App</b></a> |
+  <a href="https://spotify-backend-2-sl5d.onrender.com/" target="_blank"><b>🧠 Backend API</b></a>
+</p>
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+![App Screenshot](https://github.com/Satyam19711/Spotify-Admin/blob/main/src/assets/ad1.JPG)
+![App Screenshot](https://github.com/Satyam19711/Spotify-Admin/blob/main/src/assets/ad2.JPG)
+![App Screenshot](https://github.com/Satyam19711/Spotify-Admin/blob/main/src/assets/ad3.JPG)
+![App Screenshot](https://github.com/Satyam19711/Spotify-Admin/blob/main/src/assets/ad4.JPG)
+
+
+
+
+
+---
+
+
+## 🧩 Tech Stack  
+
+### 🖥️ Frontend  
+- React (Vite)  
+- React Router DOM  
+- Tailwind CSS  
+- Axios  
+- React Toastify (notifications)  
+
+### ⚙️ Backend (Connected To)  
+- Node.js + Express  
+- MongoDB (via Mongoose)  
+- Cloudinary (for media storage)  
+- Multer (for file uploads)  
+
+---
+
+## 🎨 Features  
+
+### 🎧 Admin Capabilities  
+✅ Add new albums (name, description, background color, image)  
+✅ Add new songs (name, description, album selection, image & audio upload)  
+✅ Delete songs or albums from the database  
+✅ View uploaded songs & albums  
+✅ Play song previews directly inside the admin panel  
+✅ Admin verification before upload (secure upload system)  
+
+### 💾 Technical Features  
+✅ File upload handled with **Multer + Cloudinary**  
+✅ Reusable **API handler (Axios instance)**  
+✅ Persistent data via **MongoDB backend**  
+✅ Auto-reset form fields after successful upload  
+✅ Responsive and user-friendly design  
+
+---
+
+## ⚙️ Installation & Setup
+
+Follow these steps to set up the project locally 👇
+
+```bash
+# 1. Clone this repository
+git clone https://github.com/Satyam19711/Spotify-Admin.git
+
+# 2. Install dependencies
+npm install
+
+# 3. Run the development server
+npm run dev
+
+```
+---
+
+
+## Contact
+
+For Contact, email smauryachs44@gmail.com
